@@ -19,60 +19,38 @@ let server = http.createServer((request,response)=>{    //创建一个服务器
 //从下面开始写路由
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+if (path === '/main.js') {
+    let string = fs.readFileSync('./main.js', 'utf8')
+    response.statusCode = 200
+    response.setHeader('Content-Type', 'text/javascript;charset=utf-8')
+    response.write(string)
+    response.end()
+  }else if(path ==='/default.css'){
+    let string = fs.readFileSync('./default.css','utf8')
+    response.statusCode = 200
+    response.setHeader('Content-Type','text/css;charset=utf8')
+    response.write(string)
+    response.end()
+  }
+  
+  else if (path === '/xxx') {
+    response.statusCode = 200
+    response.setHeader('Content-Type', 'text/json;charset=utf-8')
+    response.setHeader('Access-Control-Allow-Origin', 'http://frank.com:8001')
+    response.write(`
+    hhhhhhhhhhh
+    `)
+    response.end()
+  } else {
+    response.statusCode = 404
+    response.setHeader('Content-Type', 'text/html;charset=utf-8')
+    response.write(`
+      {
+        "error": "not found"
+      }
+    `)
+    response.end()
+  }
 })
 server.listen(port)
 console.log(`监听+${port}+成功`)
